@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  h1= title
+  form
+    .form-group
+      label(for='email') Email address
+      input#email.form-control(type='email', placeholder='Email')
+    .form-group
+      label(for='password') Password
+      input#password.password.form-control(type='password', placeholder='Password')
+    if state === 'register'
+      .form-group
+        label(for='password2') Password (again)
+        input#password2.password.form-control(type='password', placeholder='Password')
+    if state === 'register'
+      button.btn.btn-default.register#go(type='submit') Register
+    else
+      button.btn.btn-default.login#go(type='submit') Login
+
+block scripts
+  script(src="/js/form.js")
+  
