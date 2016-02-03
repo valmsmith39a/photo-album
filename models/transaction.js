@@ -13,9 +13,9 @@ var transactionSchema = new mongoose.Schema({
   requestee:{type: mongoose.Schema.Types.ObjectId, ref: "User"},
   requesterItem:{type: mongoose.Schema.Types.ObjectId, ref: "Item"},
   requesteeItem:{type: mongoose.Schema.Types.ObjectId, ref: "Item"},
-  createdAt: { type: Date, default: Date.now }
-  status: {type: String, default: 'pending'}
-  result: {type: String}
+  createdAt: { type: Date, default: Date.now },
+  status: {type: String, default: 'pending'},
+  result: {type: String} // Accepted or declined 
 });
 
 /*

@@ -14,12 +14,12 @@ router.get('/', authMiddleware, function(req, res, next) {
 
 router.get('/login', function(req, res, next) {
   // res.render('login');
-  res.render('form', {state: 'login', title: "Login"});
+  res.render('login', {state: 'login', title: "Login"});
 });
 
 router.get('/register', function(req, res, next) {
   // res.render('register');
-  res.render('form', {state: 'register', title: "Register"});
+  res.render('register',  { title: "", user: req.user});
 });
 
 router.get('/secret', authMiddleware, function(req, res, next) {
@@ -27,6 +27,18 @@ router.get('/secret', authMiddleware, function(req, res, next) {
   res.send('Wooo!  Secret stuff!!!');
 });
 
+router.get('/dashboard', function(req, res)  {
+  console.log('in dashboard');
+  res.render('dashboard');
+  /*
+  if (!req.user) { res.render('noauth'); return; };
+  //// logged in,   req.user
+  User.findById(req.user._id, function(err, user) {
+    // res.send(user);
+    res.render('profile', { useruid: user.uid, user_id: user._id, pokemon: user.pokemon})
+  });
+  */
+});
 
 // People
 
@@ -42,7 +54,7 @@ router.get('/secret', authMiddleware, function(req, res, next) {
 //   // Person.insert(req.body, function(err, person){
 //   //   res.status(err ? 400 : 200).send(err || person);
 //   // });
-//   var person = new Person(req.body); 
+//   var person = new Person(req.body);
 //   person.save(function(err, savedPerson) {
 //     res.status(err ? 400 : 200).send(err || savedPerson);
 //   });
@@ -83,15 +95,15 @@ router.post('/people', function(req, res, next) {
 
 // router.get('/people', function(req, res, next) {
 //   console.log("query stirng", req.query);
-//   // req.query === {} // no query 
+//   // req.query === {} // no query
 //   // GET localhost:3000/persons?company=MARVANE&sort=age
 //   // req.query === {company: "MARVANE", sort: "age"}
-  
+
 //   if (req.query.sort) {
-//     //if I do have a sort, 
+//     //if I do have a sort,
 //     var sortObj = {};
 //     // sortObj[req.query.sort] = req.query.asc ? 1 : -1;
-//     // ^ don't need this cuz it'll default to descending anyway. 
+//     // ^ don't need this cuz it'll default to descending anyway.
 //     sortObj[req.query.sort] = req.query.desc ? -1 : 1;
 //   };
 
@@ -100,7 +112,7 @@ router.post('/people', function(req, res, next) {
 //     // if I have a limit, I'll have the limit varible
 //   };
 
-//   // what does delete do in javascript? It removes a key from the object, and the value that goes with it. the reason I'm doing that is, so when things go after these things... so I can pass the remaining of the req.query to my find. 
+//   // what does delete do in javascript? It removes a key from the object, and the value that goes with it. the reason I'm doing that is, so when things go after these things... so I can pass the remaining of the req.query to my find.
 //   delete req.query.sort;
 //   delete req.query.desc;
 //   delete req.query.limit;
@@ -111,9 +123,9 @@ router.post('/people', function(req, res, next) {
 //     res.status(err ? 400 : 200).send(err || people);
 //   });
 
-// // can also do: 
-//   // var query = Person.find(req.query); 
-  
+// // can also do:
+//   // var query = Person.find(req.query);
+
 //   // if (req.query.limit) {
 //   //   var limit = parseInt(req.query.limit);
 //   //   query.limit(limit);
@@ -122,13 +134,13 @@ router.post('/people', function(req, res, next) {
 //   // if (req.query.sort) {
 //   //   var sortObj = {};
 //   //   sortObj[req.query.sort] = req.query.desc ? -1 : 1;
-//   //   query.sort(sortObj); 
+//   //   query.sort(sortObj);
 //   // };
-// // ^ doesn't have to be chained, can be in parts. But may have problems in this example. 
+// // ^ doesn't have to be chained, can be in parts. But may have problems in this example.
 
 // });
 
-// Clean 
+// Clean
 router.get('/people', function(req, res, next) {
 
   if (req.query.sort) {

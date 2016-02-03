@@ -13,6 +13,8 @@ var authMiddleware = function(req, res, next) {
   }
 
   req.user = payload;
+
+  console.log('req.user is', req.user);
   next();
 };
 

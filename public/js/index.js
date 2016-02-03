@@ -1,8 +1,16 @@
-'use strict';
+$(document).ready(init);
 
-console.log('index.js!');
+function init(){
+  console.log('in init() of index.js');
+}
 
-var ref = new Firebase('https://20160128.firebaseio.com/');
+function registration(){
 
-// ref.set('whoa!')
+// Upon successful registration, direct to login
 
+}
+
+function login(){
+// Upon successful login, direct to dashboard
+// 'a.href = '../dashboard'
+}

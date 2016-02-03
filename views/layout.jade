@@ -1,7 +1,7 @@
 doctype html
 html
   head
-    title lark and George's Trading App
+    title Clark and George's Trading App
     link(rel='stylesheet', href='/lib/bootstrap/dist/css/bootstrap.min.css')
     link(rel='stylesheet', href='/css/style.css')
   body
@@ -13,7 +13,7 @@ html
             span.icon-bar
             span.icon-bar
             span.icon-bar
-          a.navbar-brand(href='/') 
+          a.navbar-brand(href='/')
         #navbar.navbar-collapse.collapse
           ul.nav.navbar-nav
             li
@@ -30,7 +30,8 @@ html
 
     .container
       block content
-
+    script(src='/lib/firebase/firebase.js')
     script(src='/lib/jquery/dist/jquery.min.js')
+    script(src='https://code.jquery.com/jquery-2.2.0.min.js')
     script(src='/lib/bootstrap/dist/js/bootstrap.min.js')
     block scripts

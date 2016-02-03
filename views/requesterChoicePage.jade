@@ -1,0 +1,7 @@
+.container#list
+  each item in items
+        .row.item
+          .col-xs-2.name= item.name
+          .col-xs-2.description= item.description
+          .col-xs-2.btn.btn-danger.move(data-itemId=item._id, data-status='pending') Edit
+          .col-xs-2.btn.btn-danger.move(data-tenantId=tenant._id, data-status='pending') Delete

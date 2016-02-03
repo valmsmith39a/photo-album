@@ -1,26 +1,74 @@
 var express = require('express');
 var router = express.Router();
 var Item = require('../models/item');
+var Transaction = require('../models/transaction');
+
+
+// --- Display pages for Transactions 
+
+router.get('/tradingpage', function(req, res)  {
+  console.log('in dashboard');
+  res.render('tradingPage');
+  /*
+  if (!req.user) { res.render('noauth'); return; };
+  //// logged in,   req.user
+  User.findById(req.user._id, function(err, user) {
+    // res.send(user);
+    res.render('profile', { useruid: user.uid, user_id: user._id, pokemon: user.pokemon})
+  });
+  */
+});
+
+
+// --- 
+
+
 
 router.get('/requesterchoice/:requesteeItemId', function(req, res){
     var requesteeItemId = req.params.requesteeItemId;
     res.render('requesterChoicePage');
-})
+});
 
 router.put('/accept', function(req, res){
   var transactionId = req.body.transactionId;
-  Transaction.update({_id: transactionId}, {status: 'closed', result: 'accepted' }, function(err, data){
-    res.send()
-  })
-})
+
+  Transaction.update({ _id: transactionId}, {status: 'closed', result: 'accepted' }, function(err, data){
+    res.send();
+  });
+});
 
 router.put('/decline', function(req, res){
   var transactionId = req.body.transactionId;
-  Transaction.update({_id: transactionId}, {status: 'closed', result: 'declined' })
-  res.send()
-})
+  Transaction.update({_id: transactionId}, {status: 'closed', result: 'declined' }, function(err, data){
+    res.send();
+  });
+});
 
-/* GET all items in shopping cart */
+router.post('/createtraderequest', authMiddleware, function(req, res, next) {
+  console.log('inside create trade request');
+  var transaction = new Transaction(req.body);
+  var requesterId = req.user._id;
+  transaction.requester = requetserId;  
+  // req.body needs ids for requester, requesterItemId, requestee and requesteeItemId
+  Item.update({_id: transaction.requesteeItem}, {available: false}, function(err, requesteeItem){
+    console.log('error is: ', err);
+    console.log('requestee item is: ', requesteeItem);
+    Item.update({_id: transaction.requesterItem}, {available: false}, function(err, requesterItem){
+      console.log('requester item is: ', requesterItem);
+      //console.log('requesterItem', requesterItem, 'requesteeItem', requesteeItem);
+      transaction.save(function(err, savedTransaction){
+        console.log('err in transaction save is', err); 
+        console.log('saved transaction is: ', savedTransaction);
+        res.send(savedTransaction);
+      });
+    });
+  });
+});
+
+module.exports = router;
+
+/*
+ GET all items in shopping cart 
 router.get('/', function(req, res, next) {
   // Read from MongoDB
   Item.find({}, function(err, items){
@@ -29,21 +77,6 @@ router.get('/', function(req, res, next) {
   });
 });
 
-/* POST request trade */
-router.post('/createtraderequest', function(req, res, next) {
-  // Create new item
-  var transaction = new Transaction(req.body);
-  // req.body needs ids for requester, requesterItemId, requestee and requesteeItemId
-  Item.update({_id: transaction.requesteeItemId}, {available: false}, function(err, requesteeItem){
-      Item.update({_id: transaction.requesterItemId}, {available: false}, function(err, requesterItem){
-            console.log('requesterItem', requesterItem, 'requesteeItem', requesteeItem)
-  transaction.save(function(err, savedTransaction){
-    res.send(savedTransaction);
-  
-  });
-});
-
-/* DELETE delete item in shopping cart */
 router.delete('/:itemId', function(req, res, next) {
   // Obtain the id of the object to delete
   // Get the object to delete, and delete item from MongoDB
@@ -56,7 +89,6 @@ router.delete('/:itemId', function(req, res, next) {
   });
 });
 
-/* EDIT edit item in shopping cart */
 router.put('/:itemId', function(req, res, next) {
   // Get the new info to update item in MongoDB, req.body
   var updatedItemObject = req.body;
@@ -73,5 +105,5 @@ router.put('/:itemId', function(req, res, next) {
     });
   });
 });
+*/
 
-module.exports = router;

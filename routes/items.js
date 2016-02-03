@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 var Item = require('../models/item');
 
+var authMiddleware = require('../config/auth.js');
+
 /* GET all users items */
 router.get('/allitems', function(req, res, next) {
   Item.find({}, function(err, items){
@@ -12,20 +14,26 @@ router.get('/allitems', function(req, res, next) {
  });
 
 /* GET current user's item */
-router.get('/useritems/:userId', function(req, res, next) {
+router.get('/useritems', authMiddleware, function(req, res, next) {
   // Read from MongoDB
-  console.log('req.body is: ', req.params.userId);
+  console.log('inside user items');
+  //console.log('req.body is: ', req.params.userId);
 
-  Item.find({ownerObj:req.params.userId}, function(err, items){
+  var userMongoId = req.user._id;
+
+  console.log('user mongo id', userMongoId);
+
+  Item.find({ownerObj:userMongoId}, function(err, items){
   // Send retrieved items back to main.js
-  console.log('items is: ', items);
+    console.log('items is: ', items);
     res.send(items);
   });
+
 });
 
 /* POST Create item to trade */
-router.post('/createitem', function(req, res, next) {
-  // Create new item
+router.post('/createitem', authMiddleware, function(req, res, next) {
+  console.log('inside create item')
   console.log('req.body', req.body);
 
   var item = new Item(req.body);
