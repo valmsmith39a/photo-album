@@ -9,7 +9,7 @@ var Apartment = require('../models/apartment');
 /* GET home page. */
 router.get('/', authMiddleware, function(req, res, next) {
   console.log("User: ", req.user);
-  res.render('index', { title: "Ben's App", user: req.user});
+  res.render('index', { title: "Clark and George's Trading Post", user: req.user});
 });
 
 router.get('/login', function(req, res, next) {
