@@ -15,7 +15,8 @@ This will be due Thursday at 9.
 - Users cannot offer the same item in different trades.
 - If different user offer to trade for the same item, and one of those trades are accepted, the other trades should be immediately canceled.
 - Sort and filter items.
-### More Features:
+
+> More Features:
 - Allow group trades (offer one or more items for one or more items)
 - Track user's trade history.
 - Send email notifications when things happen (trades offered, accepted, declined, etc.)

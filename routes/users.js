@@ -8,23 +8,30 @@ var authMiddleware = require('../config/auth');
 
 var User = require('../models/user');
 
-var ref = new Firebase('https://20160128.firebaseio.com/');
+var ref = new Firebase('https://trading-app-c-g.firebaseio.com/');
 
 router.post('/register', function(req, res, next) {
   ref.createUser(req.body, function(err, userData) {
-    if(err) return res.status(400).send(err);
-    User.create(userData, function(err) {
-      res.send();
+    if(err) return res.status(400).send(err);    
+    var userObj = {};
+    userObj.firebaseId = userData.uid; 
+    userObj.name = req.body.name; 
+    userObj.email = req.body.email; 
+    User.create(userObj, function(err){
+      res.send(userObj);
     });
   });
 });
 
 router.post('/login', function(req, res, next) {
   ref.authWithPassword(req.body, function(err, authData) {
+    console.log('auth data is: ', authData);
     if(err) return res.status(400).send(err);
-    User.findOne({uid: authData.uid}, function(err, user) {
-      var token = user.generateToken();
-      res.cookie('mytoken', token).send();
+    User.findOne({firebaseId: authData.uid}, function(err, userObj) {
+      var token = userObj.generateToken();
+      console.log('token is:', token);
+      console.log('userObj is:', userObj);
+      res.cookie('mytoken', token).send(userObj);
     });
   });
 });

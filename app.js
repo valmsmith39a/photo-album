@@ -26,7 +26,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/users', require('./routes/users'));
-app.use('/pokemon', require('./routes/pokemon'));
+app.use('/items', require('./routes/items'));
+app.use('/transactions', require('./routes/transactions'));
+
 app.use('/', require('./routes/index'));
 
 // catch 404 and handle error 

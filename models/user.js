@@ -13,9 +13,12 @@ var userSchema = new mongoose.Schema({
 // instance method
 userSchema.methods.generateToken = function() {
   var payload = {
-    firebaseId: this.uid,
+    firebaseId: this.firebaseId,
     _id: this._id
   };
+
+  console.log('pay load is: ', payload);
+
   var token = jwt.encode(payload, JWT_SECRET);
 
   return token;

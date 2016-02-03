@@ -3,8 +3,8 @@ var router = express.Router();
 
 var authMiddleware = require('../config/auth');
 
-var Person = require('../models/person');
-var Apartment = require('../models/apartment');
+//var Person = require('../models/person');
+//var Apartment = require('../models/apartment');
 
 /* GET home page. */
 router.get('/', authMiddleware, function(req, res, next) {
