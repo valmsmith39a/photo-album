@@ -1,8 +1,9 @@
 # Trading App
 
-A fullstack CRUD app that allows users to post products for trade, and barter with other users.
+Deployed to: 
+https://limitless-garden-47986.herokuapp.com/
 
-This will be due Thursday at 9.
+A fullstack CRUD app that allows users to post products for trade, and barter with other users.
 
 ## MVP:
 - Splash page.
