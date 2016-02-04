@@ -1,7 +1,6 @@
 'use strict';
 
 var mongoose = require('mongoose');
-var moment = require('moment');
 var jwt = require('jwt-simple');
 var User = require('../models/user.js');
 
