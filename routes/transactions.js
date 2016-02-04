@@ -75,20 +75,60 @@ router.get('/requesterchoice/:itemId', function(req, res){
 });
 
 router.put('/accept', function(req, res){
-  var transactionId = req.body._id;
-  console.log('req.body in ACCEPT IS', req.body);
-  console.log('TRANSACTION ID IN ACCEPT IS: ', transactionId);
+  // var transactionId = req.body;
+  // console.log('req.body in ACCEPT IS', req.body);
+  // console.log('req.body in TYPE ACCEPT IS', typeof req.body);
+  // //console.log('ITEM ID ISSSSSSS: ', JSON.parse(req.body).requesterItem);
+  // console.log('TRANSACTION ID IN ACCEPT IS: ', transactionId);
+
+  // console.log('req.body.requester item', req.body.requesterItem);
+
+  // var requesterItemId = req.body.requesterItemId;
+  // var requsteeItemId = req.body.requesteeItem['_id']; 
+  // var requesterUserId = req.body.requester['_id']; 
+  // var requesteeUserId = req.body.requestee['_id']; 
   
-  Transaction.update({ _id: transactionId}, {status: 'closed', result: 'accepted' }, function(err, data){
-    res.send();
+//   Transaction.update({ _id: transactionId}, {status: 'closed', result: 'accepted' }, function(err, data){
+//     console.log('data in accept is: ', data);
+//      //var requesteeItemId = data.requesteeItem.
+     // Item.update({ _id: requesterItemId}, {available:true , ownerObj:requesteeUserId}, function(err, data){
+//       Item.update({ _id: requesteeItemId}, {available:true , ownerObj:requesterUserId}, function(err, data){
+//         res.send('Transaction and both items complete');
+//       });
+//     });
+//   });
+// }); 
+Transaction.update({ _id: req.body.transactionId}, {status: 'closed', result: 'accepted' }, function(err, data){
+    console.log('data in accept is: ', data);
+
+     console.log("JJJJJJJ", req.body.requesterItemId)
+     Item.update({ _id: req.body.requesterItemId}, {available:true , ownerObj: req.body.requesteeUserId}, function(err, data){
+      console.log("requesterItemId", data)
+      Item.update({ _id: req.body.requesteeItemId}, {available:true , ownerObj:req.body.requesterUserId}, function(err, data){
+        res.send('Transaction and both items complete');
+      });
+    });
   });
 });
 
 router.put('/decline', function(req, res){
-  var transactionId = req.body._id;
-  Transaction.update({_id: transactionId}, {status: 'closed', result: 'declined' }, function(err, data){
-    res.send();
+  
+  Transaction.update({ _id: req.body.transactionId}, {status: 'closed', result: 'declined' }, function(err, data){
+    console.log('data in accept is: ', data);
+
+     console.log("JJJJJJJ", req.body.requesterItemId)
+     Item.update({ _id: req.body.requesterItemId}, {available:true}, function(err, data){
+      console.log("requesterItemId", data)
+      Item.update({ _id: req.body.requesteeItemId}, {available:true}, function(err, data){
+        res.send('Transaction and both items complete');
+      });
+    });
   });
+  
+
+
+
+
 });
 
 router.post('/createtraderequest', authMiddleware, function(req, res, next) {
