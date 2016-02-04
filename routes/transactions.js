@@ -2,10 +2,41 @@ var express = require('express');
 var router = express.Router();
 var Item = require('../models/item');
 var Transaction = require('../models/transaction');
+var authMiddleware = require('../config/auth.js');
+
+
+//viewtransactionspage
+
+router.get('/requesteditems', authMiddleware, function(req, res)  {
+  console.log('in dashboard');
+
+  var currentUserId = req.user._id; 
+
+  Transaction.find({requester:currentUserId}, function(err, transactions){
+
+    // res.send(transactions[0].requestee.email);
+    // res.send(transactions);
+
+  }).populate('requester requestee');
+
+  
+  //res.render('tradingPage');
+  /*
+  if (!req.user) { res.render('noauth'); return; };
+  //// logged in,   req.user
+  User.findById(req.user._id, function(err, user) {
+    // res.send(user);
+    res.render('profile', { useruid: user.uid, user_id: user._id, pokemon: user.pokemon})
+  });
+  */
+});
+
+
 
 
 // --- Display pages for Transactions 
 
+/* View trading page */
 router.get('/tradingpage', function(req, res)  {
   console.log('in dashboard');
   res.render('tradingPage');
@@ -19,14 +50,26 @@ router.get('/tradingpage', function(req, res)  {
   */
 });
 
+/* View transactions page */
+router.get('/viewtransactionspage', function(req, res)  {
+  console.log('in view transactions page');
+  res.render('transactionsView');
+  /*
+  if (!req.user) { res.render('noauth'); return; };
+  //// logged in,   req.user
+  User.findById(req.user._id, function(err, user) {
+    // res.send(user);
+    res.render('profile', { useruid: user.uid, user_id: user._id, pokemon: user.pokemon})
+  });
+  */
+});
 
 // --- 
 
-
-
-router.get('/requesterchoice/:requesteeItemId', function(req, res){
-    var requesteeItemId = req.params.requesteeItemId;
-    res.render('requesterChoicePage');
+router.get('/requesterchoice/:itemId', function(req, res){
+    Item.findById(req.params.itemId, function(err, item){
+      res.render('requesterChoicePage', {item: item});
+    });
 });
 
 router.put('/accept', function(req, res){
@@ -48,7 +91,7 @@ router.post('/createtraderequest', authMiddleware, function(req, res, next) {
   console.log('inside create trade request');
   var transaction = new Transaction(req.body);
   var requesterId = req.user._id;
-  transaction.requester = requetserId;  
+  transaction.requester = requesterId;  
   // req.body needs ids for requester, requesterItemId, requestee and requesteeItemId
   Item.update({_id: transaction.requesteeItem}, {available: false}, function(err, requesteeItem){
     console.log('error is: ', err);

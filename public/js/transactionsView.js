@@ -1,77 +1,30 @@
+'use strict';
 $(document).ready(init);
 var arrayOfUserItemsG = [];
 var arrayOfRowContainersObjectsG = [];
 
 function init() {
   console.log('in init() of dashboard.js');
-  getUserItems(); 
-  $("#view-tradingpage").on('click', viewTradingPage);
-  $("#view-transactions").on('click', viewTransactionsPage);
-  $('#addBtn').on('click', addNewItem);
-  $('#list').on('click', '.deleteBtn', deleteItem);
+  // getUserItems(); 
+  //$("#view-tradingpage").on('click', viewTradingPage)
+  /*$('#addBtn').on('click', addNewItem);
+  $('#list').on('click', '.deleteBtn', deleteItem)*/
 
-
-  /*
-  $.post('/transactions', itemObject)
-  .success(function(data) {
-    console.log('data:', data)
-    location.href = '/';
-  }).fail(function(err) {
-    console.log('err:', err)
-    alert('something went wrong :(')
-  });
-  */
-
-  /*
-  $.ajax({
-    method: 'PUT',
-    url: '/transactions/' + itemId,
-    data: itemObject
-    })
-    .done(function(data, status) {
-      alert('Your edits have been saved');
-    });
-  */
-
-  /*
-  $.ajax({
-    method: "DELETE",
-    url: "/transactions/" + itemId
-    })
-    .done(function(status){
-      arrayOfItemsObjectsG.splice(indexOfItem,1);
-      calculatePriceTotal();
-      updateArrayOfRowContainers();
-      displayRowContainers();
-    });
-  */
+  getRequestedItems(); 
+  getAcceptDeclineItems(); 
 }
 
-function viewTransactionsPage(){
-  console.log('view transactions page');
-  location.href = '/transactions/viewtransactionspage';
+function getRequestedItems(){
+  console.log('get requested items');
+
+}
+
+function getAcceptDeclineItems(){
+  console.log('get accepted/decline items');
 
 }
 
 
-function addNewItem(){
-  var name = $('#name').val();
-  var description = $('#description').val();
-  console.log("in addNewItem")
-  $.post("/items/createitem", {itemName: name, description: description})
-  .done(function(data){
-    getUserItems()
-      })
-  .fail(function(err){
-    console.log(err)
-  })
-
-}
-
-function viewTradingPage(){
-  console.log('in view trading page');
-  location.href = '/transactions/tradingpage';
-}
 
 function deleteItem(){
   console.log("we are in")
@@ -131,15 +84,7 @@ function getUserItems(){
 
     displayItems();
 
-      //arrayOfItemsObjectsG = data.slice();
-      // Keep a copy of original array for sorting
-      //originalArrayOfItemsObjectsG = data.slice();
-      //calculatePriceTotal();
-      //updateArrayOfRowContainers();
-      //displayRowContainers();
    });
 
-  // AJAX GET to items rou
-  // Send 
 
 }

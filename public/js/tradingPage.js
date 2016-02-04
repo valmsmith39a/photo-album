@@ -1,37 +1,51 @@
 $(document).ready(init);
 
-function init(){
-  //console.log('inside init of tradingPage.js');
-  //getAllTransactions(); 
-  getCurrentUserObject(); 
-  $('#list').on('click', '.tradeRequestButton', tradeRequest);
-}
-
 var arrayOfAllItemsG = [];
 var arrayOfRowContainersObjectsG = [];
 var currentUserObject = [];
 
+function init(){
+  getAllTransactions(); 
+  $('#list').on('click', '.tradeRequestButton', userChoicePage);
+}
+
 function getAllTransactions(){
   console.log('inside get all transactions in trading page.js');
-
-  // AJAX call to get all transactions
-  // items/allitems
   $.get('/items/allitems')
   .success(function(data){
-    //console.log('data in trading page is: ', data);
     arrayOfAllItemsG = data; 
     displayItems();
-
-      //arrayOfItemsObjectsG = data.slice();
-      // Keep a copy of original array for sorting
-      //originalArrayOfItemsObjectsG = data.slice();
-      //calculatePriceTotal();
-      //updateArrayOfRowContainers();
-      //displayRowContainers();
    })
   .fail(function(err){
     console.log('error: ', err);
    });
+}
+
+function userChoicePage(){
+  var itemIndex = $(this).closest('.row-container').index() - 1;
+  var itemObject = arrayOfAllItemsG[itemIndex];  
+  var itemId = itemObject._id;
+  
+  location.href = '/transactions/requesterchoice/' + itemId;
+
+  /*
+  $.get( '/transactions/requesterchoice')
+  .done(function( data ) {
+  });
+  */
+ 
+  
+  /*
+  $.get('/transactions/requesterchoice', itemObject)
+   .success(function(data){
+    console.log('data from requestioner choice: ', data);
+   })
+  .fail(function(err){
+    console.log('error: ', err);
+   });
+  */
+  
+ 
 }
 
 /*
@@ -74,11 +88,7 @@ function displayItems(){
 
   arrayOfAllItemsG.map(function(item){
     var $rowContainer = $('<tr>').addClass('row row-container');
-    //console.log('item in map function is: ', item._id);
-
     $rowContainer.data('itemId', item._id);
-
-    //console.log('row container is: ', $rowContainer);
 
     var $nameColumn = $('<td>').addClass('name-col col-md-4 col-xs-4').text(item.itemName);
     $rowContainer.append($nameColumn);

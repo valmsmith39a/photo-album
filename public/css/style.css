@@ -1,0 +1,13 @@
+#list{
+  width: 98vw;
+  display: flex;
+  flex-direction: column;
+}
+.row-container{
+  width: 98vw;
+  display: flex;
+  justify-content: space-around;
+}
+.green{
+  background-color: green;
+}

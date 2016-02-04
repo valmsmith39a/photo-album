@@ -37,6 +37,7 @@ router.post('/createitem', authMiddleware, function(req, res, next) {
   console.log('req.body', req.body);
 
   var item = new Item(req.body);
+  item.ownerObj= req.user._id
 
   console.log('item is', item);
   // Write to MongoDB and send back to main.js
@@ -51,6 +52,7 @@ router.post('/createitem', authMiddleware, function(req, res, next) {
 router.delete('/:itemId', function(req, res, next) {
   // Obtain the id of the object to delete
   // Get the object to delete, and delete item from MongoDB
+  console.log("Inside Delete", req.params.itemId)
   Item.findById(req.params.itemId, function(err, item){
     item.remove(function(err){
       if(!err) console.log('item removed successfully');

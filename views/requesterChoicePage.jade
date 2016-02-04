@@ -1,7 +1,23 @@
-.container#list
-  each item in items
-        .row.item
-          .col-xs-2.name= item.name
-          .col-xs-2.description= item.description
-          .col-xs-2.btn.btn-danger.move(data-itemId=item._id, data-status='pending') Edit
-          .col-xs-2.btn.btn-danger.move(data-tenantId=tenant._id, data-status='pending') Delete
+extends layout
+
+block content
+  .jumbotron 
+    h2 Choose the item you would like to offer. 
+  .requesteeItemBox 
+    h3 The item you wanted to trade for:
+    .requesteeItemObject(id='#{item._id}', data-type='#{item.ownerObj}') Item: #{item.itemName} 
+    | Description : #{item.description}
+  br
+  button.requestTradeBtn Request Trade
+  br
+  h5 Select an item below before requesting a trade.
+
+  h3 The items you can trade with: 
+  .container#list
+    
+
+block scripts
+  script(src="/js/requesterChoicePage.js")
+
+
+  
