@@ -94,10 +94,15 @@ function displayItems(){
   arrayOfRowContainersObjectsG.splice(0, arrayOfRowContainersObjectsG.length);
 
   var $titleRow = $('<tr>').addClass('row-container row-title');
-  var $itemTitle = $('<td>').addClass('name-title col-md-6 col-xs-6').text('Name');
+  var $itemTitle = $('<td>').addClass('name-title ').text('Name');
   $titleRow.append($itemTitle);
-  var $descriptionTitle = $('<td>').addClass('description-title col-md-3 col-xs-3').text('Description');
+  var $descriptionTitle = $('<td>').addClass('description-title ').text('Description');
   $titleRow.append($descriptionTitle);
+  var $extraSecret = $('<td>').addClass('shhhhh')
+  $titleRow.append($extraSecret);
+  var $extraSecret2 = $('<td>').addClass('shhhhh')
+  $titleRow.append($extraSecret2);
+
 
   arrayOfRowContainersObjectsG.push($titleRow);
 

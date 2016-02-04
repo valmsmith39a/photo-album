@@ -5,21 +5,23 @@ var Transaction = require('../models/transaction');
 var authMiddleware = require('../config/auth.js');
 
 
-//viewtransactionspage
+/* Items requested of me ACCEPT/DECLINE */
+router.get('/itemsacceptdecline', authMiddleware, function(req, res)  {
+  console.log('in dashboard');
+  var currentUserId = req.user._id;
+  console.log('current user: ', currentUserId);
+  Transaction.find({requestee:currentUserId}, function(err, transactions){
+    res.send(transactions);
+  }).populate('requester requestee requesterItem requesteeItem');
+});
 
+/* Items I requested */
 router.get('/requesteditems', authMiddleware, function(req, res)  {
   console.log('in dashboard');
-
   var currentUserId = req.user._id; 
-
   Transaction.find({requester:currentUserId}, function(err, transactions){
-
-    // res.send(transactions[0].requestee.email);
-    // res.send(transactions);
-
-  }).populate('requester requestee');
-
-  
+    res.send(transactions);
+  }).populate('requester requestee requesterItem requesteeItem');
   //res.render('tradingPage');
   /*
   if (!req.user) { res.render('noauth'); return; };
@@ -73,15 +75,17 @@ router.get('/requesterchoice/:itemId', function(req, res){
 });
 
 router.put('/accept', function(req, res){
-  var transactionId = req.body.transactionId;
-
+  var transactionId = req.body._id;
+  console.log('req.body in ACCEPT IS', req.body);
+  console.log('TRANSACTION ID IN ACCEPT IS: ', transactionId);
+  
   Transaction.update({ _id: transactionId}, {status: 'closed', result: 'accepted' }, function(err, data){
     res.send();
   });
 });
 
 router.put('/decline', function(req, res){
-  var transactionId = req.body.transactionId;
+  var transactionId = req.body._id;
   Transaction.update({_id: transactionId}, {status: 'closed', result: 'declined' }, function(err, data){
     res.send();
   });

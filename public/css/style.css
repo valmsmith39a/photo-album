@@ -11,3 +11,32 @@
 .green{
   background-color: green;
 }
+
+.navbar{
+  background-image: url('https://boardsandbarley.files.wordpress.com/2013/05/logo051913.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: #e2b279;
+  color: black;
+}
+
+td{
+  max-width: 20vw;
+  min-width: 20vw;
+}
+
+.jumbotron{
+   background-color: #e2b279; 
+}
+.name-title, .description-title{
+  position:relative;
+  left:;
+  text-align: left;
+}
+body{
+  background-color: oldlace;
+  color: black;
+  font-family: 'Muli', sans-serif;
+
+}
