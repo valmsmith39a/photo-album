@@ -16,7 +16,7 @@
   background-image: url('https://boardsandbarley.files.wordpress.com/2013/05/logo051913.png');
   background-size: contain;
   background-repeat: no-repeat;
-  background-position: center;
+  background-position: left;
   background-color: #e2b279;
   color: black;
 }
@@ -27,7 +27,7 @@ td{
 }
 
 .jumbotron{
-   background-color: #e2b279; 
+   background-color: #e2b279;
 }
 .name-title, .description-title{
   position:relative;
@@ -39,4 +39,27 @@ body{
   color: black;
   font-family: 'Muli', sans-serif;
 
+}
+.splash{
+display: flex;
+justify-content: center;
+align-items: center;
+position: fixed;
+background-image: url('http://www.willscreekcommunityforum.com/wp-content/uploads/2015/01/Trading-Post-Logo-small.jpg');
+background-position: center;
+background-size: contain;
+background-repeat: no-repeat;
+background-color: brown;
+font-size: 5vw;
+width: 100vw;
+height: 100vh;
+top: 0;
+left: 0;
+text-align: center;
+color: yellow;
+text-shadow:
+  -1px -1px 0 black,
+  1px -1px 0 black,
+  -1px 1px 0 black,
+  1px 1px 0 black;
 }

@@ -23,7 +23,9 @@ router.get('/secret', authMiddleware, function(req, res, next) {
   console.log('req.user:', req.user);
   res.send('Wooo!  Secret stuff!!!');
 });
-
+router.get('/resetpass', function(req, res, next) {
+  res.render('resetpass');
+});
 router.get('/dashboard', function(req, res)  {
   console.log('in dashboard');
   res.render('dashboard');

@@ -24,6 +24,15 @@ router.get('/useritems', authMiddleware, function(req, res, next) {
 
 });
 
+/* GET show details items */
+router.get('/editshowdetailspage/:itemId', authMiddleware, function(req, res, next) {
+ 
+  console.log('inside get edits show details page');
+
+  res.render('editAndShowDetailsPage', {itemId:req.params.itemId});
+
+});
+
 /* POST Create item to trade */
 router.post('/createitem', authMiddleware, function(req, res, next) {
 
@@ -35,6 +44,8 @@ router.post('/createitem', authMiddleware, function(req, res, next) {
     res.send(savedItem);
   });
 });
+
+
 
 /* DELETE user item */
 router.delete('/:itemId', function(req, res, next) {
@@ -52,15 +63,20 @@ router.delete('/:itemId', function(req, res, next) {
 });
 
 /* EDIT edit user item */
-router.put('/edititem/:itemId', function(req, res, next) {
+router.put('/edititem', function(req, res, next) {
   // Get the new info to update item in MongoDB, req.body
+
+  console.log('inside edit item put');
+
   var updatedItemObject = req.body;
 
+  var itemId = req.body.itemId;
+
   // Retrieve the object using the id of the item, req.params.itemId
-  Item.findById(req.params.itemId, function(err, item){
+  Item.findById(itemId, function(err, item){
     // Update the object based on new info passed in
-    item.itemName = updatedItemObject.itemName;
-    item.ownerObj = updatedItemObject.ownerObj;
+    item.itemName = updatedItemObject.name;
+    //item.ownerObj = updatedItemObject.ownerObj;
     item.description = updatedItemObject.description;
     // Write item back to MongoDB
     item.save(function(err, savedItem){
@@ -68,6 +84,7 @@ router.put('/edititem/:itemId', function(req, res, next) {
       res.status(err ? 400:200).send(err||savedItem);
     });
   });
+  
 });
 
 module.exports = router;

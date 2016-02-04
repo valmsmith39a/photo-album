@@ -2,6 +2,11 @@ $(document).ready(init);
 
 function init(){
   console.log('in init() of index.js');
+  $('.splash').on('click', splash)
+}
+
+function splash(){
+  $('.splash').remove()
 }
 
 function registration(){

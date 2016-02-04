@@ -9,15 +9,35 @@ function init() {
   $("#view-transactions").on('click', viewTransactionsPage);
   $('#addBtn').on('click', addNewItem);
   $('#list').on('click', '.deleteBtn', deleteItem);
+  $('#list').on('click', '.edit', editAndShowDetailsPage);
+}
 
+function editAndShowDetailsPage(){
+  console.log('in show details page');
+  var itemIndex = $(this).closest('.row-container').index() - 1;
+  var itemObject = arrayOfUserItemsG[itemIndex];  
+  var itemId = itemObject._id;
+
+///editshowdetailspage
+
+  location.href = '/items/editshowdetailspage/' + itemId;
+
+/*
+  $.post("/items/editshowdetailspage", itemObject)
+  .done(function(data){
+     //location.href = '/items/editshowdetailspage';
+    //getUserItems()
+  })
+  .fail(function(err){
+    console.log(err)
+  })
+  */
 }
 
 function viewTransactionsPage(){
   console.log('view transactions page');
   location.href = '/transactions/viewtransactionspage';
-
 }
-
 
 function addNewItem(){
   var name = $('#name').val();
@@ -30,7 +50,6 @@ function addNewItem(){
   .fail(function(err){
     console.log(err)
   })
-
 }
 
 function viewTradingPage(){
