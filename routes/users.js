@@ -45,14 +45,6 @@ router.get('/dashboard', function(req, res){
     res.render('dashboard', {items});
   });
 
-  /*
-  if (!req.user) { res.render('noauth'); return; };
-  //// logged in,   req.user
-  User.findById(req.user._id, function(err, user) {
-    // res.send(user);
-    res.render('profile', { useruid: user.uid, user_id: user._id, pokemon: user.pokemon})
-  });
-  */
 });
 
 router.get('/logout', function(req, res, next) {

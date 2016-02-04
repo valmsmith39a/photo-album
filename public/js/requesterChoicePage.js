@@ -47,13 +47,6 @@ function useItem(){
   console.log("userID", userItemId)
 }
 
-  // if (selected === true){
-  //   selected = false;
-  // }
-  // else{
-  //   selected= true;
-  // }
-
 function displayItems(){
 
   $('#list').empty();

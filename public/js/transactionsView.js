@@ -10,10 +10,7 @@ var arrayOfRowContainersObjectsG = [];
 
 function init() {
   console.log('in init() of dashboard.js');
-  // getUserItems(); 
-  //$("#view-tradingpage").on('click', viewTradingPage)
-  /*$('#addBtn').on('click', addNewItem);
-  $('#list').on('click', '.deleteBtn', deleteItem)*/
+  
 
 
   $('#acceptDeclinelist').on('click', '.acceptBTNN', acceptRequest);
@@ -37,14 +34,7 @@ function acceptRequest(e){
   var requesterUserId = itemObject.requester._id; 
   var requesteeUserId = itemObject.requestee._id; 
 
-  // console.log("requesterItem", requesterItemId)
-  // console.log("requesteeItem", requesteeItemId)
-
-  //var itemId = itemObject._id;
-
-  // Update transactions object 
-  // status pending -> closed
-  // result '' -> accpeted/declined
+  
 
   console.log('ARRAY OF ACCEPT DECLINE ITEMS', {requesterItemId: requesterItemId});
 
@@ -57,10 +47,7 @@ function acceptRequest(e){
       alert('Your edits have been saved');
     });
 
-  // Update items object
-  // available false -> true 
-  // if accepted
-  //  swap - ownerObj values save
+  
 
 
 }
@@ -72,7 +59,6 @@ function declineRequest(e){
   var itemIndex = $(e.target).closest('.row-container').index() - 1;
   var itemObject = arrayOfAcceptDeclineItemsG[itemIndex];  
 
-  console.log('item object is: ', itemObject);
 
   var transactionId = itemObject._id
   var requesterItemId = itemObject.requesterItem._id;
@@ -82,16 +68,8 @@ function declineRequest(e){
 
 
 
-  console.log("requesterItem", requesterItemId)
-  console.log("requesteeItem", requesteeItemId)
-
-  //var itemId = itemObject._id;
-
-  // Update transactions object 
-  // status pending -> closed
-  // result '' -> accpeted/declined
-
-  //console.log('ARRAY OF ACCEPT DECLINE ITEMS', {requesterItemId: requesterItemId});
+  
+  
 
 
   $.ajax({
@@ -104,10 +82,7 @@ function declineRequest(e){
     });
     
 
-  // Update items object
-  // available false -> true 
-  // if accepted
-  //  swap - ownerObj values save
+  
 
 
 }
@@ -259,11 +234,7 @@ function displayRequestItems(){
     var $nameItemOfferingColumn = $('<td>').addClass('name-item-offering-col ').text(item.requesterItem.itemName);
     $rowContainer.append($nameItemOfferingColumn);
 
-    //var $acceptBtn = $('<button>').addClass('acceptBTNN description-col ').text('Accept');
-    //$rowContainer.append($acceptBtn);
-
-    //var $declineBtn = $('<button>').addClass('decline-btn description-col ').text('Decline');
-    //$rowContainer.append($declineBtn);
+    
 
     arrayOfRowContainersObjectsG.push($rowContainer);
   });

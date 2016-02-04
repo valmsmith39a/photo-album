@@ -28,50 +28,15 @@ function userChoicePage(){
   
   location.href = '/transactions/requesterchoice/' + itemId;
 
-  /*
-  $.get( '/transactions/requesterchoice')
-  .done(function( data ) {
-  });
-  */
+  
  
   
-  /*
-  $.get('/transactions/requesterchoice', itemObject)
-   .success(function(data){
-    console.log('data from requestioner choice: ', data);
-   })
-  .fail(function(err){
-    console.log('error: ', err);
-   });
-  */
+  
   
  
 }
 
-/*
-function tradeRequest(){
-  console.log('in trade request');
-  var itemIndex = $(this).closest('.row-container').index() - 1;
-  var itemObject = arrayOfAllItemsG[itemIndex];  
-  var itemId = itemObject._id;
-  var requesteeId = itemObject.ownerObj;
-  var transactionItemObject = {};
 
-  transactionItemObject.requestee = requesteeId;
-  transactionItemObject.requesteeItem = itemId;
-  transactionItemObject.requester ='56b249f7dddb005cc769881b'; 
-  transactionItemObject.requesterItem = '56b26c4e6a0dba42cc825e91'; 
-
-  $.post('/transactions/createtraderequest', transactionItemObject)
-  .success(function(savedTransaction) {
-    console.log('data returned from post is: ', savedTransaction);
-    //location.href = '/';
-  }).fail(function(err) {
-    console.log('err:', err)
-    alert('something went wrong :(');
-  });
-}
-*/
 
 function displayItems(){
 

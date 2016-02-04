@@ -10,41 +10,6 @@ function init() {
   $('#addBtn').on('click', addNewItem);
   $('#list').on('click', '.deleteBtn', deleteItem);
 
-
-  /*
-  $.post('/transactions', itemObject)
-  .success(function(data) {
-    console.log('data:', data)
-    location.href = '/';
-  }).fail(function(err) {
-    console.log('err:', err)
-    alert('something went wrong :(')
-  });
-  */
-
-  /*
-  $.ajax({
-    method: 'PUT',
-    url: '/transactions/' + itemId,
-    data: itemObject
-    })
-    .done(function(data, status) {
-      alert('Your edits have been saved');
-    });
-  */
-
-  /*
-  $.ajax({
-    method: "DELETE",
-    url: "/transactions/" + itemId
-    })
-    .done(function(status){
-      arrayOfItemsObjectsG.splice(indexOfItem,1);
-      calculatePriceTotal();
-      updateArrayOfRowContainers();
-      displayRowContainers();
-    });
-  */
 }
 
 function viewTransactionsPage(){
@@ -136,15 +101,7 @@ function getUserItems(){
 
     displayItems();
 
-      //arrayOfItemsObjectsG = data.slice();
-      // Keep a copy of original array for sorting
-      //originalArrayOfItemsObjectsG = data.slice();
-      //calculatePriceTotal();
-      //updateArrayOfRowContainers();
-      //displayRowContainers();
    });
 
-  // AJAX GET to items rou
-  // Send 
 
 }

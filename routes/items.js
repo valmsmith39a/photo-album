@@ -8,24 +8,17 @@ var authMiddleware = require('../config/auth.js');
 router.get('/allitems', function(req, res, next) {
   Item.find({}, function(err, items){
   // Send retrieved items back to main.js
-  console.log('items is: ', items);
     res.send(items);
    });
  });
 
 /* GET current user's item */
 router.get('/useritems', authMiddleware, function(req, res, next) {
-  // Read from MongoDB
-  console.log('inside user items');
-  //console.log('req.body is: ', req.params.userId);
-
+ 
   var userMongoId = req.user._id;
-
-  console.log('user mongo id', userMongoId);
 
   Item.find({ownerObj:userMongoId}, function(err, items){
   // Send retrieved items back to main.js
-    console.log('items is: ', items);
     res.send(items);
   });
 
@@ -33,17 +26,12 @@ router.get('/useritems', authMiddleware, function(req, res, next) {
 
 /* POST Create item to trade */
 router.post('/createitem', authMiddleware, function(req, res, next) {
-  console.log('inside create item')
-  console.log('req.body', req.body);
 
   var item = new Item(req.body);
   item.ownerObj= req.user._id
 
-  console.log('item is', item);
   // Write to MongoDB and send back to main.js
   item.save(function(err, savedItem){
-    console.log('saved item: ', savedItem);
-    console.log('err', err);
     res.send(savedItem);
   });
 });
@@ -68,16 +56,6 @@ router.put('/edititem/:itemId', function(req, res, next) {
   // Get the new info to update item in MongoDB, req.body
   var updatedItemObject = req.body;
 
-/*
-createdAt:{type:Date, default:Date.now},
-  itemName: {type:String}, 
-  ownerObj:{type: mongoose.Schema.Types.ObjectId, ref: "User"},
-  description:{type:String},
-  available:{type:Boolean, default:false}
-  */
-
-
-
   // Retrieve the object using the id of the item, req.params.itemId
   Item.findById(req.params.itemId, function(err, item){
     // Update the object based on new info passed in
@@ -94,22 +72,4 @@ createdAt:{type:Date, default:Date.now},
 
 module.exports = router;
 
-/*
-var express = require('express');
-var router = express.Router();
 
-var authMiddleware = require('../config/auth');
-
-router.use(authMiddleware);
-
-GET home page. 
-router.get('/', function(req, res, next) {
-  // show my pokemon
-});
-
-router.post('/', function(req, res, next) {
-  // add pokemon to user
-});
-
-module.exports = router;
-*/
