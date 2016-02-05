@@ -25,8 +25,6 @@ function viewTradingPage(){
   console.log('in view trading page');
   location.href = '/transactions/tradingpage';
 }
-
-
 .form
     | Edit Album Name:        
     input#album-name(type="text")
@@ -46,3 +44,24 @@ function viewTradingPage(){
     button#saveImageBtn Add Image to Album 
 
   .container#list
+
+
+  /* POST create user image */
+router.post('/createimage', authMiddleware, function(req, res, next) {
+
+  var image = new Image(req.body);
+
+  image.save(function(err, savedImage){
+    res.send(savedImage);
+  });
+});
+
+form
+    | Add Image Name:        
+    input#image-name(type="text")
+    | Add Image Description:        
+    input#image-description(type='text')
+    button#saveImageBtn Add Image to Album 
+
+
+

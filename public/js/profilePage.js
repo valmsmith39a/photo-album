@@ -52,9 +52,9 @@ function deleteItem(){
 function editAndShowDetailsPage(){
   var itemIndex = $(this).closest('.row-container').index() - 1;
   var itemObject = arrayOfUserItemsG[itemIndex];  
-  var itemId = itemObject._id;
+  var albumId = itemObject._id;
 
-  location.href = '/albums/editshowdetailspage/' + itemId;
+  location.href = '/albums/editshowdetailspage/' + albumId;
 }
 
 function displayItems(){

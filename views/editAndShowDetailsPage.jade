@@ -4,7 +4,7 @@ block content
   .jumbotron.text-center
     h2 Album
   br
-  form(action='/images/uploadimage', method='post', enctype='multipart/form-data')
+  form(action='/images/uploadimage/'+'#{albumId}', method='post', enctype='multipart/form-data')
     input(type='file', name='images', id='images' multiple=true)
     button Submit 
     br
@@ -19,12 +19,6 @@ block content
     .itemIdDiv(id='#{albumId}')
     br
     br
-  form
-    | Add Image Name:        
-    input#image-name(type="text")
-    | Add Image Description:        
-    input#image-description(type='text')
-    button#saveImageBtn Add Image to Album 
   .container#list
 
 block scripts
