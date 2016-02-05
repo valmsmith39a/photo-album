@@ -62,4 +62,10 @@ router.get('/getalbumimages/:albumId', authMiddleware, function(req, res, next) 
   }).populate('imagesArray');
 });
 
+/* GET view full image */
+router.get('/fullimage/:imageURL', authMiddleware, function(req, res, next) {
+  console.log('INSIDE IMAGE URL');
+  res.render('viewFullImage', {imageURL:req.params.imageURL});
+});
+
 module.exports = router;

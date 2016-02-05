@@ -12,6 +12,11 @@
   background-color: green;
 }
 
+.image-col {
+  max-height: 30px;
+  max-width:30px;
+}
+
 .navbar{
   /*background-image: url('https://boardsandbarley.files.wordpress.com/2013/05/logo051913.png');*/
   background-size: contain;
