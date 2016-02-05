@@ -52,12 +52,20 @@ body{
   /*background-image:url('https://s3-us-west-1.amazonaws.com/s3-upload-image-app-ch/f8f79250-cbe2-11e5-8338-35fd7f96ce67.jpg');*/
 
 }
+
+.splashpage {
+  /*background-image: url('http://ibackpackcanada.com/wp-content/uploads/2009/05/things-to-do-in-rocky-mountains.jpg');*/
+  width:100%;
+  height:100%;
+}
+
+
 .splash{
 display: flex;
 justify-content: center;
 align-items: center;
 position: fixed;
-background-image: url('http://www.willscreekcommunityforum.com/wp-content/uploads/2015/01/Trading-Post-Logo-small.jpg');*/
+/*background-image: url('http://www.willscreekcommunityforum.com/wp-content/uploads/2015/01/Trading-Post-Logo-small.jpg');*/*/
 background-position: center;
 background-size: contain;
 background-repeat: no-repeat;
