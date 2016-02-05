@@ -46,7 +46,8 @@ router.post('/uploadimage/:albumId', upload.array('images'), function(req, res){
         album.imagesArray.push(image);
         album.save(function(err, data) {
           if(err) res.send(err)
-          res.send('image saved in album successfully');
+          res.redirect('/albums/editshowdetailspage/' + albumId);
+          //res.send('image saved in album successfully');
         });
       });
     });
