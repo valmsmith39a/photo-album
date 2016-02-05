@@ -88,23 +88,21 @@ function displayItems() {
 function saveEdits(e){
   e.preventDefault();
 
-  var name = $('#album-nam').val();
+  var name = $('#album-name').val();
   var description = $('#album-description').val(); 
-  var itemId = $('.itemIdDiv').attr('id'); 
+  var albumId = $('.itemIdDiv').attr('id'); 
   
   var itemObj = {};
-
   itemObj.albumName = name; 
   itemObj.description = description; 
-  //itemObj.itemId = itemId; 
 
   $.ajax({
     method: 'PUT',
-    url: '/albums/edititem/' + itemId,
+    url: '/albums/editalbum/' + albumId,
     data: itemObj
     })
     .done(function(data, status) {
-      location.href = '/dashboard';
+      location.href = '/users/profilepage';
       alert('Your edits have been saved');
     });
 }

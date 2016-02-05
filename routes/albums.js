@@ -55,64 +55,16 @@ router.delete('/:albumId/:albumIndex', authMiddleware,function(req, res, next) {
 });
 
 router.put('/editalbum/:albumId', function(req, res, next) {
-  // Get the new info to update album in MongoDB, req.body
-
-  console.log('inside edit album put');
-
   var updatedItemObject = req.body;
-
   var itemId = req.params.albumId;
-
-  // Retrieve the object using the id of the album, req.params.itemId
   Album.findById(itemId, function(err, album){
-    // Update the object based on new info passed in
-    album.itemName = updatedItemObject.name;
-    //album.ownerObj = updatedItemObject.ownerObj;
+    album.albumName = updatedItemObject.albumName;
     album.description = updatedItemObject.description;
-    // Write album back to MongoDB
     album.save(function(err, savedItem){
-      console.log('saved')
       res.status(err ? 400:200).send(err||savedItem);
     });
   });
 });
 
 module.exports = router;
-
-// -------
-/*
-
-router.get('/editshowdetailspage/:itemId', authMiddleware, function(req, res, next) {
- 
-  console.log('inside get edits show details page');
-
-  res.render('editAndShowDetailsPage', {itemId:req.params.itemId});
-
-});
-
-router.put('/edititem', function(req, res, next) {
-  // Get the new info to update album in MongoDB, req.body
-
-  console.log('inside edit album put');
-
-  var updatedItemObject = req.body;
-
-  var itemId = req.body.itemId;
-
-  // Retrieve the object using the id of the album, req.params.itemId
-  Album.findById(itemId, function(err, album){
-    // Update the object based on new info passed in
-    album.itemName = updatedItemObject.name;
-    //album.ownerObj = updatedItemObject.ownerObj;
-    album.description = updatedItemObject.description;
-    // Write album back to MongoDB
-    album.save(function(err, savedItem){
-      console.log('saved')
-      res.status(err ? 400:200).send(err||savedItem);
-    });
-  });
-  
-});
-*/
-
 
