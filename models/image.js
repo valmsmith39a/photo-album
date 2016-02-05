@@ -19,20 +19,6 @@ var imageSchema = new mongoose.Schema({
 });
 
 imageSchema.statics.uploadImageToAWS = function(supportUploadObj, callback){
-
-  console.log('inside uploadImageToAWS');
-  console.log('aws bucket', process.env.AWS_BUCKET);
-
-  /*
-  supportUploadObj.albumId = req.params.albumId;
-  supportUploadObj.filename = filename;
-  supportUploadObj.imageBuffer = req.files[0].buffer;
-  supportUploadObj.ext = filename.match(/\.\w+$/)[0] || '';
-  supportUploadObj.key = uuid.v1() + ext;
-  supportUploadObj.albumId = req.params.albumId;
-  supportUploadObj.albumId = req.params.albumId;
-  */
-
   var albumId = supportUploadObj.albumId;
   var filename = supportUploadObj.filename;
   var imageBuffer = supportUploadObj.imageBuffer;
@@ -72,93 +58,8 @@ imageSchema.statics.uploadImageToAWS = function(supportUploadObj, callback){
       });
     });
   });
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  // ----
-
-
-
-  //if(!userObj.email || !userObj.password){
-    //return callback('Missing required field (email, password)');
-  //}
-  // user obj will have email and password
-  // create user on firebase
-
-
-
-  // return callback for error 
-  // save callback in the end 
-
-  /*
-  ref.createUser(userObj, function(err, userData){
-    // err could be email in use. invoke callback w error and stop
-    if(err) return callback(err); // if don't want anything to happen after, return the callback
-
-    // Create new user (new document) in Mongo
-    var user = new User();
-    user.firebaseId = userData.uid;
-    user.email = userObj.email;
-    
-    user.save(function(err, savedUser){
-      callback(err, savedUser);
-    });
-    
-    // Can do this instead
-    // .save always asynchronous regardless if
-    // For a callback function, the function is triggered later.
-    // the inside the .save, will pass to the callback err and userData params
-    user.save(callback);
-  });
-  */
 };
 
-// --
-/*Eventually, this is how we'll be using .register
-  User.register({email:'afdas', password:'adsfaf'}, function(err, user)){
-
-*/
-
 var Image = mongoose.model('Image', imageSchema);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 module.exports = Image;
