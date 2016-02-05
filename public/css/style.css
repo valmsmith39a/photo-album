@@ -17,6 +17,12 @@
   max-width:30px;
 }
 
+.full-image{
+  position:relative;
+  max-height: 800px;
+  max-width: 1000px;
+}
+
 .navbar{
   /*background-image: url('https://boardsandbarley.files.wordpress.com/2013/05/logo051913.png');*/
   background-size: contain;
@@ -36,13 +42,13 @@ td{
 }
 .name-title, .description-title{
   position:relative;
-  left:;
   text-align: left;
 }
 body{
   /*background-color: oldlace;*/
   color: black;
   font-family: 'Muli', sans-serif;
+  /*https://s3-us-west-1.amazonaws.com/s3-upload-image-app-ch/e63000b0-cc25-11e5-b669-71ed58d7bd2b.jpg*/
   /*background-image:url('https://s3-us-west-1.amazonaws.com/s3-upload-image-app-ch/f8f79250-cbe2-11e5-8338-35fd7f96ce67.jpg');*/
 
 }

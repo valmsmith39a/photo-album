@@ -6,7 +6,9 @@ var arrayOfRowContainersObjectsG = [];
 function init(){
   console.log('inside edit init');
   $('#saveEditsBtn').on('click', saveEdits);
-  $("#list").on('click', '.full-image',viewFullImage);
+  $("#list").on('click', '.full-image', viewFullImage);
+  $("#list").on('click', '.deleteBtn', deleteItem);
+  $("#list").on('click', '#saveEditsBtn', saveEdits);
 
   getAllImages();
 }
@@ -22,15 +24,27 @@ function getAllImages(){
 
 function viewFullImage() {
   console.log('In view full image');
-  var itemIndex = $(this).closest('.row-container').index() - 1;
-  var itemObject = arrayOfUserItemsG[itemIndex];  
-  var imageURL = itemObject.url;
-  /*
-  $.get('/images/fullimage/' + 'aaa', function(data) {
-      console.log('get success');
-   });
-   */
-  location.href = imageURL; 
+  var imageIndex = $(this).closest('.row-container').index() - 1;
+  var imageObject = arrayOfUserItemsG[imageIndex];  
+  var imageURL = imageObject.url;
+  var imageId = imageObject._id; 
+
+  location.href = '/images/fullimage/' + imageId; 
+}
+
+function deleteItem() {
+  var imageIndex = $(this).closest('.row-container').index() - 1;
+  var imageObject = arrayOfUserItemsG[imageIndex];  
+  var imageId = imageObject._id;
+  var albumId = $('.itemIdDiv').attr('id');
+
+  $.ajax({
+    method: "DELETE",
+    url: "/images/" + imageId + '/' + albumId + '/' + imageIndex
+  })
+  .done(function(status){
+    getAllImages();
+  });
 }
 
 function displayItems() {
@@ -71,29 +85,27 @@ function displayItems() {
 }
 
 
-function saveEdits(){
-  console.log('inside save edits function');
-  
-  /*
-  var name = $('#name').val();
-  var description = $('#description').val(); 
+function saveEdits(e){
+  e.preventDefault();
+
+  var name = $('#album-nam').val();
+  var description = $('#album-description').val(); 
   var itemId = $('.itemIdDiv').attr('id'); 
   
   var itemObj = {};
 
-  itemObj.name = name; 
+  itemObj.albumName = name; 
   itemObj.description = description; 
-  itemObj.itemId = itemId; 
+  //itemObj.itemId = itemId; 
 
   $.ajax({
     method: 'PUT',
-    url: '/items/edititem',
+    url: '/albums/edititem/' + itemId,
     data: itemObj
     })
     .done(function(data, status) {
       location.href = '/dashboard';
       alert('Your edits have been saved');
     });
-  */ 
 }
 

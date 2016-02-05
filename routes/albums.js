@@ -35,11 +35,44 @@ router.post('/createalbum', authMiddleware, function(req, res, next) {
 });
 
 /* DELETE remove user album */
-router.delete('/:itemId', function(req, res, next) {  
-  Album.findById(req.params.itemId, function(err, album) {
-    album.remove(function(err){
-      if(!err) console.log('album removed successfully');
-      res.status(err ? 400:200).send(err||null);
+router.delete('/:albumId/:albumIndex', authMiddleware,function(req, res, next) {  
+  console.log('inside delete album router file');
+  var userId = req.user._id; 
+  Album.findById(req.params.albumId, function(err, album) {
+    User.findById(userId, function(err, user){
+      console.log('before remove', user.albumsArray);
+      user.albumsArray.splice(req.params.albumIndex, 1);
+      console.log('after remove', user.albumsArray);
+
+      user.save(function(err, data){
+        album.remove(function(err){
+          res.status(err ? 400:200).send(err||null);
+          console.log('album REMOVED SUCCESSFULLY');
+        });
+      });
+    });  
+  });
+});
+
+router.put('/editalbum/:albumId', function(req, res, next) {
+  // Get the new info to update album in MongoDB, req.body
+
+  console.log('inside edit album put');
+
+  var updatedItemObject = req.body;
+
+  var itemId = req.params.albumId;
+
+  // Retrieve the object using the id of the album, req.params.itemId
+  Album.findById(itemId, function(err, album){
+    // Update the object based on new info passed in
+    album.itemName = updatedItemObject.name;
+    //album.ownerObj = updatedItemObject.ownerObj;
+    album.description = updatedItemObject.description;
+    // Write album back to MongoDB
+    album.save(function(err, savedItem){
+      console.log('saved')
+      res.status(err ? 400:200).send(err||savedItem);
     });
   });
 });

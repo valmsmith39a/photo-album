@@ -36,13 +36,13 @@ function addNewAlbum(){
 }
 
 function deleteItem(){
-  var itemIndex = $(this).closest('.row-container').index() - 1;
-  var itemObject = arrayOfUserItemsG[itemIndex];  
-  var itemId = itemObject._id;
+  var albumIndex = $(this).closest('.row-container').index() - 1;
+  var albumObject = arrayOfUserItemsG[albumIndex];  
+  var albumId = albumObject._id;
 
   $.ajax({
     method: "DELETE",
-    url: "/albums/" + itemId
+    url: "/albums/" + albumId + '/' + albumIndex
   })
   .done(function(status){
     getUserAlbums();

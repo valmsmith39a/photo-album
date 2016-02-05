@@ -63,9 +63,27 @@ router.get('/getalbumimages/:albumId', authMiddleware, function(req, res, next) 
 });
 
 /* GET view full image */
-router.get('/fullimage/:imageURL', authMiddleware, function(req, res, next) {
-  console.log('INSIDE IMAGE URL');
-  res.render('viewFullImage', {imageURL:req.params.imageURL});
+router.get('/fullimage/:imageId', authMiddleware, function(req, res, next) {
+    Image.findById(req.params.imageId, function(err, image){
+      res.render('viewFullImage', {imageURL:image.url});
+    });
+});
+
+/* DELETE remove image */
+router.delete('/:imageId/:albumId/:imageIndex', function(req, res, next) {  
+    Image.findById(req.params.imageId, function(err, image) {
+     var albumMongoId = req.params.albumId; 
+     Album.findById(albumMongoId, function(err, album){
+      var userImagesArray = album.imagesArray;
+      album.imagesArray.splice(req.params.imageIndex, 1);
+      album.save(function(err, data){
+        image.remove(function(err){
+          res.status(err ? 400:200).send(err||null);
+          console.log('image REMOVED SUCCESSFULLY');
+        });
+      });
+    });  
+  });
 });
 
 module.exports = router;

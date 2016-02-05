@@ -27,16 +27,7 @@ function userChoicePage(){
   var itemId = itemObject._id;
   
   location.href = '/transactions/requesterchoice/' + itemId;
-
-  
- 
-  
-  
-  
- 
 }
-
-
 
 function displayItems(){
 
