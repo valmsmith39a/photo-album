@@ -1,0 +1,48 @@
+// For button clicks 
+$("#view-tradingpage").on('click', viewTradingPage);
+$("#view-transactions").on('click', viewTransactionsPage);
+
+// Post
+/*
+  $.post("/items/editshowdetailspage", itemObject)
+  .done(function(data){
+     //location.href = '/items/editshowdetailspage';
+    //getUserItems()
+  })
+  .fail(function(err){
+    console.log(err)
+  })
+  */
+
+// going to a new page 
+
+  function viewTransactionsPage(){
+  console.log('view transactions page');
+  location.href = '/transactions/viewtransactionspage';
+}
+
+function viewTradingPage(){
+  console.log('in view trading page');
+  location.href = '/transactions/tradingpage';
+}
+
+
+.form
+    | Edit Album Name:        
+    input#album-name(type="text")
+    | Edit Album Description:        
+    input#album-description(type='text')
+    br
+    button#saveEditsBtn Save Edits
+    .itemIdDiv(id='#{albumId}')
+    br
+    br
+  
+  .form
+    | Add Image Name:        
+    input#image-name(type="text")
+    | Add Image Description:        
+    input#image-description(type='text')
+    button#saveImageBtn Add Image to Album 
+
+  .container#list

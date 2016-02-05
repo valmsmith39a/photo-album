@@ -7,10 +7,10 @@ var JWT_SECRET = process.env.JWT_SECRET;
 var userSchema = new mongoose.Schema({
   firebaseId: {type:String},
   name:{type:String},
-  email:{type:String}
+  email:{type:String}, 
+  albumsArray:[{type: mongoose.Schema.Types.ObjectId, ref: "Album"}]
 });
 
-// instance method
 userSchema.methods.generateToken = function() {
   var payload = {
     firebaseId: this.firebaseId,

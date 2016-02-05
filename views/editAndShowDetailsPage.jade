@@ -2,19 +2,30 @@ extends layout
 
 block content
   .jumbotron.text-center
-    h2 Item details page
+    h2 Album
   br
-  .form
-    | Edit Name:        
-    input#name(type="text")
+  form(action='/images/uploadimage', method='post', enctype='multipart/form-data')
+    input(type='file', name='images', id='images' multiple=true)
+    button Submit 
     br
-    | Edit Desctiption:        
-    input#description(type='text')
+    br
+  form
+    | Edit Album Name:        
+    input#album-name(type="text")
+    | Edit Album Description:        
+    input#album-description(type='text')
     br
     button#saveEditsBtn Save Edits
-    .itemIdDiv(id='#{itemId}')
-
+    .itemIdDiv(id='#{albumId}')
+    br
+    br
+  form
+    | Add Image Name:        
+    input#image-name(type="text")
+    | Add Image Description:        
+    input#image-description(type='text')
+    button#saveImageBtn Add Image to Album 
   .container#list
-  
+
 block scripts
   script(src="/js/editAndShowDetailsPage.js")

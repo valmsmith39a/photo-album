@@ -3,9 +3,9 @@
 var Firebase = require('firebase');
 var express = require('express');
 var User = require('../models/user');
-var Item = require('../models/item');
+var Album = require('../models/album');
 var authMiddleware = require('../config/auth');
-var ref = new Firebase('https://trading-app-c-g.firebaseio.com/');
+var ref = new Firebase('https://photo-album-aws.firebaseio.com/');
 var router = express.Router();
 
 router.post('/register', function(req, res, next) {
@@ -16,6 +16,7 @@ router.post('/register', function(req, res, next) {
     userObj.firebaseId = userData.uid;
     userObj.name = req.body.name;
     userObj.email = req.body.email;
+    userObj.albumsArray = req.body.albumsArray;
     User.create(userObj, function(err){
       console.log(userObj);
       res.send(userObj);
@@ -59,13 +60,14 @@ router.post('/resetpass', function(req, res, next) {
 });
 
 //authMiddleware,
-router.get('/dashboard', function(req, res){
-  console.log('in dashboard');
-
+router.get('/profilepage', function(req, res){
+  res.render('profilePage');
+  /*
   Item.find({}, function(err, items){
     console.log('items is: ', items);
     res.render('dashboard', {items});
   });
+  */
 
 });
 

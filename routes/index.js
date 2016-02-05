@@ -5,29 +5,30 @@ var authMiddleware = require('../config/auth');
 
 /* GET home page. */
 router.get('/', authMiddleware, function(req, res, next) {
-  console.log("User: ", req.user);
-  res.render('index', { title: "Clark and George's Trading Post", user: req.user});
+  res.render('index', { title: "Carousel", user: req.user});
 });
 
 router.get('/login', function(req, res, next) {
-  // res.render('login');
   res.render('login', {state: 'login', title: "Login"});
 });
 
 router.get('/register', function(req, res, next) {
-  // res.render('register');
   res.render('register',  { title: "", user: req.user});
 });
 
 router.get('/secret', authMiddleware, function(req, res, next) {
-  console.log('req.user:', req.user);
   res.send('Wooo!  Secret stuff!!!');
 });
+
 router.get('/resetpass', function(req, res, next) {
   res.render('resetpass');
 });
+
+module.exports = router;
+
+/*
+
 router.get('/dashboard', function(req, res)  {
-  console.log('in dashboard');
   res.render('dashboard');
 });
 
@@ -87,3 +88,4 @@ router.get('/people', function(req, res, next) {
 });
 
 module.exports = router;
+*/

@@ -7,7 +7,7 @@ var bodyParser = require('body-parser');
 
 var app = express();
 
-var mongoUrl = process.env.MONGOLAB_URI || 'mongodb://localhost/tradingapp'
+var mongoUrl = process.env.MONGOLAB_URI || 'mongodb://localhost/photoalbum'
 var mongoose = require('mongoose');
 mongoose.connect(mongoUrl, function(err) {
   console.log(err || `Connected to MongoDB: ${mongoUrl}`);
@@ -26,8 +26,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/users', require('./routes/users'));
-app.use('/items', require('./routes/items'));
-app.use('/transactions', require('./routes/transactions'));
+app.use('/albums', require('./routes/albums'));
+app.use('/images', require('./routes/images'));
 
 app.use('/', require('./routes/index'));
 

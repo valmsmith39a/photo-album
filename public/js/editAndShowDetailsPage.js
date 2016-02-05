@@ -8,6 +8,7 @@ function init(){
 function saveEdits(){
   console.log('inside save edits function');
   
+  /*
   var name = $('#name').val();
   var description = $('#description').val(); 
   var itemId = $('.itemIdDiv').attr('id'); 
@@ -27,5 +28,6 @@ function saveEdits(){
       location.href = '/dashboard';
       alert('Your edits have been saved');
     });
+  */
    
 }

@@ -1,10 +1,35 @@
 var express = require('express');
 var router = express.Router();
+var Album = require('../models/album');
+
+var authMiddleware = require('../config/auth.js');
+
+/* GET all images in an album */
+router.get('/allimagesinalbum', authMiddleware, function(req, res, next) {
+  var userMongoId = req.user._id;
+  Album.findById(albumMongoId, function(err, images){
+    res.send(images);
+   });
+ });
+/* POST create user image */
+router.post('/createimage', authMiddleware, function(req, res, next) {
+
+  var image = new Image(req.body);
+
+  image.save(function(err, savedImage){
+    res.send(savedImage);
+  });
+});
+
+module.exports = router;
+
+/*
+var express = require('express');
+var router = express.Router();
 var Item = require('../models/item');
 
 var authMiddleware = require('../config/auth.js');
 
-/* GET all users items */
 router.get('/allitems', function(req, res, next) {
   Item.find({}, function(err, items){
   // Send retrieved items back to main.js
@@ -12,7 +37,6 @@ router.get('/allitems', function(req, res, next) {
    });
  });
 
-/* GET current user's item */
 router.get('/useritems', authMiddleware, function(req, res, next) {
  
   var userMongoId = req.user._id;
@@ -24,7 +48,6 @@ router.get('/useritems', authMiddleware, function(req, res, next) {
 
 });
 
-/* GET show details items */
 router.get('/editshowdetailspage/:itemId', authMiddleware, function(req, res, next) {
  
   console.log('inside get edits show details page');
@@ -33,7 +56,6 @@ router.get('/editshowdetailspage/:itemId', authMiddleware, function(req, res, ne
 
 });
 
-/* POST Create item to trade */
 router.post('/createitem', authMiddleware, function(req, res, next) {
 
   var item = new Item(req.body);
@@ -47,7 +69,6 @@ router.post('/createitem', authMiddleware, function(req, res, next) {
 
 
 
-/* DELETE user item */
 router.delete('/:itemId', function(req, res, next) {
   // Obtain the id of the object to delete
   // Get the object to delete, and delete item from MongoDB
@@ -62,7 +83,6 @@ router.delete('/:itemId', function(req, res, next) {
   });
 });
 
-/* EDIT edit user item */
 router.put('/edititem', function(req, res, next) {
   // Get the new info to update item in MongoDB, req.body
 
@@ -87,6 +107,6 @@ router.put('/edititem', function(req, res, next) {
   
 });
 
-module.exports = router;
 
 
+*/
