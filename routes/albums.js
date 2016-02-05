@@ -5,10 +5,11 @@ var Album = require('../models/album');
 var authMiddleware = require('../config/auth.js');
 
 /* GET album details page*/
-router.get('/editshowdetailspage/:albumId', authMiddleware, function(req, res, next) {
-  var albumMongoId = req.params.albumId; //req.user._id;
-  console.log('album mongo id is:', albumMongoId);
-  res.render('editAndShowDetailsPage', {albumId: albumMongoId});
+router.get('/editshowdetailspage/:albumId/:albumName', authMiddleware, function(req, res, next) {
+  var albumMongoId = req.params.albumId; 
+  var albumName = req.params.albumName;
+  console.log('inside edit show details route');
+  res.render('editAndShowDetailsPage', {albumId: albumMongoId, albumName:albumName});
 });
 
 /* GET all user albums */

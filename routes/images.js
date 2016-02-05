@@ -17,40 +17,21 @@ var Image = require('../models/image');
 var Album = require('../models/album');
 
 /* Upload image to AWS */
-router.post('/uploadimage/:albumId', upload.array('images'), function(req, res){
-  var albumId = req.params.albumId;
-  var filename = req.files[0].originalname;
-  var imageBuffer = req.files[0].buffer;
-  // $ : last , + : one or more
+router.post('/uploadimage/:albumId', upload.array('images'), function(req, res) {
+  var filename = req.files[0].originalname;  
   var ext = filename.match(/\.\w+$/)[0] || '';
-  var key = uuid.v1() + ext;  // Guarantee a unique name. + ext to account for different types of files 
-  var imageToUpload = {
-    Bucket:process.env.AWS_BUCKET,
-    Key:key, 
-    Body:imageBuffer 
-  };
 
-  s3.putObject(imageToUpload, function(err, data) {  // uploads to s3
-    var url = process.env.AWS_URL + process.env.AWS_BUCKET + '/' + key;
-      
-    var image = new Image({
-          key:key,
-          url:url, 
-          name:filename,
-          //description:description
-    });
+  var supportUploadObj = {};
+  supportUploadObj.albumId = req.params.albumId;
+  supportUploadObj.filename = filename;
+  supportUploadObj.imageBuffer = req.files[0].buffer;
+  supportUploadObj.ext = filename.match(/\.\w+$/)[0] || '';
+  supportUploadObj.key = uuid.v1() + ext;
+  supportUploadObj.albumId = req.params.albumId;
+  supportUploadObj.albumId = req.params.albumId;
 
-    image.save(function(err, image) { // save to MongoDb
-      if(err) res.send(err); 
-      Album.findById(albumId, function(err, album) {
-        album.imagesArray.push(image);
-        album.save(function(err, data) {
-          if(err) res.send(err)
-          res.redirect('/albums/editshowdetailspage/' + albumId);
-          //res.send('image saved in album successfully');
-        });
-      });
-    });
+  Image.uploadImageToAWS(supportUploadObj, function(err, album){
+    res.redirect('/albums/editshowdetailspage/' + req.params.albumId + '/' + album.albumName);
   });
 });
 

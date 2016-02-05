@@ -53,8 +53,11 @@ function editAndShowDetailsPage(){
   var itemIndex = $(this).closest('.row-container').index() - 1;
   var itemObject = arrayOfUserItemsG[itemIndex];  
   var albumId = itemObject._id;
+  var albumName = itemObject.albumName;
 
-  location.href = '/albums/editshowdetailspage/' + albumId;
+  console.log('/albums/editshowdetailspage/' + albumId + '/' + albumName);
+
+  location.href = '/albums/editshowdetailspage/' + albumId + '/' + albumName;
 }
 
 function displayItems(){

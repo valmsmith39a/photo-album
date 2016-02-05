@@ -2,7 +2,9 @@ extends layout
 
 block content
   .jumbotron.text-center
-    h2 Album
+    h2 Album: #{albumName}
+  a#backToProfile(href='/users/profilepage') Back to My Albums
+  br
   br
   form(action='/images/uploadimage/'+'#{albumId}', method='post', enctype='multipart/form-data')
     input(type='file', name='images', id='images' multiple=true)
@@ -12,7 +14,7 @@ block content
   form
     | Edit Album Name:        
     input#album-name(type="text")
-    | Edit Album Description:        
+    |    Edit Album Description:        
     input#album-description(type='text')
     br
     button#saveEditsBtn Save Edits
