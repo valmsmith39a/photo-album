@@ -18,6 +18,14 @@ var Album = require('../models/album');
 
 /* Upload image to AWS */
 router.post('/uploadimage/:albumId', upload.array('images'), function(req, res) {
+  var albumId = req.params.albumId; 
+  Image.uploadImage(req.files, function(err, imagesArray) {
+    Image.updateImagesArrayInAlbum(imagesArray, albumId, function(err, album) {
+      res.redirect('/albums/editshowdetailspage/' + req.params.albumId + '/' + album.albumName);
+      //res.redirect('/albums/editshowdetailspage/' + albumId);
+    });
+  });
+  /*
   var filename = req.files[0].originalname;  
   var ext = filename.match(/\.\w+$/)[0] || '';
 
@@ -33,6 +41,7 @@ router.post('/uploadimage/:albumId', upload.array('images'), function(req, res) 
   Image.uploadImageToAWS(supportUploadObj, function(err, album){
     res.redirect('/albums/editshowdetailspage/' + req.params.albumId + '/' + album.albumName);
   });
+  */
 });
 
 /* GET all images in an album */
