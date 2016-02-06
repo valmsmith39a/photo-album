@@ -25,23 +25,7 @@ router.post('/uploadimage/:albumId', upload.array('images'), function(req, res) 
       //res.redirect('/albums/editshowdetailspage/' + albumId);
     });
   });
-  /*
-  var filename = req.files[0].originalname;  
-  var ext = filename.match(/\.\w+$/)[0] || '';
-
-  var supportUploadObj = {};
-  supportUploadObj.albumId = req.params.albumId;
-  supportUploadObj.filename = filename;
-  supportUploadObj.imageBuffer = req.files[0].buffer;
-  supportUploadObj.ext = filename.match(/\.\w+$/)[0] || '';
-  supportUploadObj.key = uuid.v1() + ext;
-  supportUploadObj.albumId = req.params.albumId;
-  supportUploadObj.albumId = req.params.albumId;
-
-  Image.uploadImageToAWS(supportUploadObj, function(err, album){
-    res.redirect('/albums/editshowdetailspage/' + req.params.albumId + '/' + album.albumName);
-  });
-  */
+  
 });
 
 /* GET all images in an album */

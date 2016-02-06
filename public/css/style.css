@@ -1,3 +1,8 @@
+.maintitle {
+  font-family: 'Lily Script One', cursive;
+}
+
+
 #list{
   width: 98vw;
   display: flex;
@@ -13,14 +18,34 @@
 }
 
 .image-col {
+  position:relative;
+  text-align: left;
+  right:150px;
   max-height: 30px;
   max-width:30px;
 }
 
+.name-col {
+  position:relative;
+  text-align: left;
+  right:100px;
+  /*max-height: 30px;*/
+  /*max-width:30px;*/
+}
+
 .full-image{
   position:relative;
-  max-height: 800px;
-  max-width: 1000px;
+  /*height: 700vw;*/
+  /*width: 800vw;*/
+  /*max-height: 800px;*/
+  /*max-width: 1000px;*/
+}
+
+.full-image-page {
+  position:relative;
+  margin:10vw;
+  height:40vw;
+  width:60vw;
 }
 
 .navbar{
@@ -28,7 +53,8 @@
   background-size: contain;
   background-repeat: no-repeat;
   background-position: left;
-  background-color: #e2b279;
+  background-color:green;
+  background-color: #87cefa;   /*#e2b279*/
   color: black;
 }
 
@@ -39,18 +65,41 @@ td{
 
 .jumbotron{
    /*background-color: #e2b279;*/
+   background-image:url('http://all4desktop.com/data_images/original/4238660-nature-background.jpg');
+   color:red;
+   font-size: 50px;
+   opacity:.8;
 }
-.name-title, .description-title{
+.name-title, .description-title {
+  position:relative;
+  text-align: center;
+  font-weight: bold;
+  font-size: 25px;
+}
+
+.name-col, .description-col{
   position:relative;
   text-align: left;
+
 }
+
+.useralbum {
+  cursor:pointer;
+  text-decoration: underline;
+}
+
+.user-image {
+  cursor:pointer;
+  text-decoration: underline;
+}
+
 body{
-  /*background-color: oldlace;*/
+  background-color:#ffe4e1;
   color: black;
   font-family: 'Muli', sans-serif;
+  background-color:#F0F0F0;
   /*https://s3-us-west-1.amazonaws.com/s3-upload-image-app-ch/e63000b0-cc25-11e5-b669-71ed58d7bd2b.jpg*/
   /*background-image:url('https://s3-us-west-1.amazonaws.com/s3-upload-image-app-ch/f8f79250-cbe2-11e5-8338-35fd7f96ce67.jpg');*/
-
 }
 
 .splashpage {

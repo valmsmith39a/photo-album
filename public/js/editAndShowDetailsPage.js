@@ -51,10 +51,10 @@ function displayItems() {
   $('#list').empty();
   arrayOfRowContainersObjectsG.splice(0, arrayOfRowContainersObjectsG.length);
 
-  var $titleRow = $('<tr>').addClass('row-container row-title');
+  var $titleRow = $('<tr>').addClass('row-container row-title col-md-6 col-xs-6');
   var $itemTitle = $('<td>').addClass('name-title ').text('Name');
   $titleRow.append($itemTitle);
-  var $descriptionTitle = $('<td>').addClass('description-title ').text('Image');
+  var $descriptionTitle = $('<td>').addClass('description-title col-md-6 col-xs-6').text('Image');
   $titleRow.append($descriptionTitle);
   var $placeholder1 = $('<td>')
   $titleRow.append($placeholder1);
