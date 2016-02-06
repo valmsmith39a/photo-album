@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  .jumbotron.text-center
+    h2 Album: #{userPublicAlbumName}
+  br
+  .container#list
+    each image in imagesArray
+      .user-image(data-image-id=image._id)=image.name
+
+block scripts
+  script(src="/js/userPublicAlbum.js")

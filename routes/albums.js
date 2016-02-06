@@ -4,11 +4,31 @@ var User = require('../models/user');
 var Album = require('../models/album');
 var authMiddleware = require('../config/auth.js');
 
-/* GET album details page*/
+/* GET all users' albums */
+router.get('/allusersalbums', authMiddleware, function(req, res, next) {
+  Album.find({}, function(err, allUsersAlbums){
+    console.log('all users albums ERR: ', err);
+    console.log('all users albums ERR: ', allUsersAlbums);
+    res.render('allUsersAlbums', {allUsersAlbums:allUsersAlbums});
+  });
+});
+
+/* GET specific user's public album in all users album list  */
+router.get('/userpublicalbum/:albumId', authMiddleware, function(req, res, next) {
+  Album.findById(req.params.albumId).populate('imagesArray').exec(function(err, userPublicAlbum){
+    console.log('INSIDE USERPUBLICITEM')
+    console.log('all users albums ERR: ', err);
+    console.log('user album name', userPublicAlbum.albumName);
+    console.log('user array', userPublicAlbum.imagesArray);
+    //res.render('userPublicAlbum');
+    res.render('userPublicAlbum', {userPublicAlbumName:userPublicAlbum.albumName, imagesArray:userPublicAlbum.imagesArray});
+  });
+});
+
+/* GET album details page */
 router.get('/editshowdetailspage/:albumId/:albumName', authMiddleware, function(req, res, next) {
   var albumMongoId = req.params.albumId; 
   var albumName = req.params.albumName;
-  console.log('inside edit show details route');
   res.render('editAndShowDetailsPage', {albumId: albumMongoId, albumName:albumName});
 });
 

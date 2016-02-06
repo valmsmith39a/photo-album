@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  .jumbotron.text-center
+    h2 All Public Albums
+  #all-users-albums(data-albums={allUsersAlbums})
+  #list
+    each album in allUsersAlbums
+      .useralbum(data-album-id=album._id)=album.albumName
+  
+block scripts
+    script(src="/js/allUsersAlbums.js")

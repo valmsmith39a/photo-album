@@ -48,7 +48,10 @@ router.post('/uploadimage/:albumId', upload.array('images'), function(req, res) 
 router.get('/getalbumimages/:albumId', authMiddleware, function(req, res, next) {
   var albumMongoId = req.params.albumId; 
   Album.findById(albumMongoId, function(err, album){
-    var userImagesArray = album.imagesArray;
+    var userImagesArray = [];
+    if(album) {
+      userImagesArray = album.imagesArray;
+    }
     res.send(userImagesArray);
   }).populate('imagesArray');
 });
@@ -56,6 +59,7 @@ router.get('/getalbumimages/:albumId', authMiddleware, function(req, res, next) 
 /* GET view full image */
 router.get('/fullimage/:imageId', authMiddleware, function(req, res, next) {
     Image.findById(req.params.imageId, function(err, image){
+      console.log('image url is: ', image.url);
       res.render('viewFullImage', {imageURL:image.url});
     });
 });

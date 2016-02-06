@@ -54,9 +54,7 @@ function editAndShowDetailsPage(){
   var itemObject = arrayOfUserItemsG[itemIndex];  
   var albumId = itemObject._id;
   var albumName = itemObject.albumName;
-
-  console.log('/albums/editshowdetailspage/' + albumId + '/' + albumName);
-
+  
   location.href = '/albums/editshowdetailspage/' + albumId + '/' + albumName;
 }
 
