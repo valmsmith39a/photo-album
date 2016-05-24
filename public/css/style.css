@@ -2,17 +2,19 @@
   font-family: 'Lily Script One', cursive;
 }
 
-#list{
+#list {
   width: 98vw;
   display: flex;
   flex-direction: column;
 }
-.row-container{
+
+.row-container {
   width: 98vw;
   display: flex;
   justify-content: space-around;
 }
-.green{
+
+.green {
   background-color: green;
 }
 
@@ -32,7 +34,7 @@
   /*max-width:30px;*/
 }
 
-.full-image{
+.full-image {
   position:relative;
   /*height: 700vw;*/
   /*width: 800vw;*/
@@ -47,7 +49,7 @@
   width:60vw;
 }
 
-.navbar{
+.navbar {
   /*background-image: url('https://boardsandbarley.files.wordpress.com/2013/05/logo051913.png');*/
   background-size: contain;
   background-repeat: no-repeat;
@@ -57,18 +59,19 @@
   color: black;
 }
 
-td{
+td {
   max-width: 20vw;
   min-width: 20vw;
 }
 
-.jumbotron{
+.jumbotron {
    /*background-color: #e2b279;*/
    /*background-image: url('http://all4desktop.com/data_images/original/4238660-nature-background.jpg');*/
    color: black;
    font-size: 50px;
    opacity:.8;
 }
+
 .name-title, .description-title {
   position:relative;
   text-align: center;
@@ -76,7 +79,7 @@ td{
   font-size: 25px;
 }
 
-.name-col, .description-col{
+.name-col, .description-col {
   position:relative;
   text-align: left;
 
@@ -92,7 +95,7 @@ td{
   text-decoration: underline;
 }
 
-body{
+body {
   background-color:#ffe4e1;
   color: black;
   font-family: 'Muli', sans-serif;
@@ -106,7 +109,6 @@ body{
   width:100%;
   height:100%;
 }
-
 
 .splash{
 display: flex;
