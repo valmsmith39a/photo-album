@@ -2,7 +2,6 @@
 $(document).ready(init);
 
 function init() {
-  console.log('in init() of dashboard.js');
   getUserItems(); 
   $('#view-tradingpage').on('click', viewTradingPage);
   $('#list').on('click', '.useItemColumn', useItem);
@@ -23,16 +22,13 @@ function tradeRequest(){
   transactionItemObject.requesterItem = userItemId; 
   $.post('/transactions/createtraderequest', transactionItemObject)
   .success(function(savedTransaction) {
-    console.log('data returned from post is: ', savedTransaction);
     location.href = '/dashboard';
     //location.href = '/';
   }).fail(function(err) {
-    console.log('err:', err)
     alert('something went wrong :(');
   });
 }
 function viewTradingPage(){
-  console.log('in view trading page');
 
   location.href = '/transactions/tradingpage';
 
@@ -43,8 +39,6 @@ function useItem(){
   var itemIndex = $(this).closest('.row-container').index() - 1;
   var itemObject = arrayOfUserItemsG[itemIndex];  
   userItemId = itemObject._id;
-  console.log("itemIndex", itemIndex)
-  console.log("userID", userItemId)
 }
 
 function displayItems(){
@@ -78,10 +72,8 @@ function displayItems(){
 
 
 function getUserItems(){
-  console.log('get user items');
 
   $.get('/items/useritems', function(data){
-    console.log('data is: ', data);
 
     arrayOfUserItemsG = data; 
 

@@ -1,3 +1,9 @@
+/**************************************************************
+Refactoring notes: 
+Test register, login, logout
+Should have auth middleware for profile route 
+****************************************************************/
+
 'use strict';
 
 var Firebase = require('firebase');
@@ -9,7 +15,12 @@ var ref = new Firebase('https://photo-album-aws.firebaseio.com/');
 var router = express.Router();
 
 router.post('/register', function(req, res, next) {
-  console.log('inside register', req.body);
+  User.register(req.body, function(err, user) {
+    console.log('err is: ', err);
+    if(err) res.send(err);
+    res.send(user);
+  });
+  /*
   ref.createUser(req.body, function(err, userData) {
     if(err) return res.status(400).send(err);
     var userObj = {};
@@ -18,29 +29,30 @@ router.post('/register', function(req, res, next) {
     userObj.email = req.body.email;
     userObj.albumsArray = req.body.albumsArray;
     User.create(userObj, function(err){
-      console.log(userObj);
       res.send(userObj);
     });
   });
+  */
 });
 
 router.post('/login', function(req, res, next) {
+  User.login(req.body, function(err, token, user) {
+    console.log('err is: ', err);
+    res.cookie('mytoken', token).send(user);
+  });
+  /*
   ref.authWithPassword(req.body, function(err, authData) {
-    console.log('auth data is: ', authData);
     if(err) return res.status(400).send(err);
     User.findOne({firebaseId: authData.uid}, function(err, userObj) {
       var token = userObj.generateToken();
-      console.log('token is:', token);
-      console.log('userObj is:', userObj);
       res.cookie('mytoken', token).send(userObj);
     });
   });
+  */
 });
 
 router.post('/resetpass', function(req, res, next) {
-  console.log("IN");
   var email = req.body.email
-  console.log("EMAIL",email);
   ref.resetPassword({
     email: email
   }, function(error) {
@@ -59,16 +71,9 @@ router.post('/resetpass', function(req, res, next) {
   res.send();
 });
 
-//authMiddleware,
+// Note: Should need authMiddleware
 router.get('/profilepage', function(req, res){
   res.render('profilePage');
-  /*
-  Item.find({}, function(err, items){
-    console.log('items is: ', items);
-    res.render('dashboard', {items});
-  });
-  */
-
 });
 
 router.get('/logout', function(req, res, next) {
@@ -76,42 +81,39 @@ router.get('/logout', function(req, res, next) {
 });
 
 router.get('/currentuser',authMiddleware, function(req, res, next){
-
   var currentUserId = res.user._id;
-  console.log('current id', currentUserId);
 
   User.find({_id:currentUserId}, function(err, currentUserObject){
     req.user._id;
-    console.log('current user object, ', currentUserObject);
     res.send(currentUserObject);
   });
 });
 
 router.post('/changepass', function(req, res, next) {
-  console.log('req.body', req.body);
   var email = req.body.email;
   var oldPassword = req.body.oldPassword;
   var newPassword = req.body.newPassword;
-ref.changePassword({
-  email: email,
-  oldPassword: oldPassword,
-  newPassword: newPassword
-}, function(error) {
-  if (error) {
-    switch (error.code) {
-      case "INVALID_PASSWORD":
+
+  ref.changePassword({
+    email: email,
+    oldPassword: oldPassword,
+    newPassword: newPassword
+  }, function(error) {
+    if (error) {
+      switch (error.code) {
+        case "INVALID_PASSWORD":
         console.log("The specified user account password is incorrect.");
         break;
-      case "INVALID_USER":
+        case "INVALID_USER":
         console.log("The specified user account does not exist.");
         break;
-      default:
+        default:
         console.log("Error changing password:", error);
+      }
+    } else {
+      console.log("User password changed successfully!");
     }
-  } else {
-    console.log("User password changed successfully!");
-  }
-});
+  });
   res.send();
 });
 

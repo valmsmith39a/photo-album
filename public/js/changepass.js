@@ -14,7 +14,6 @@ function hideLoginStuff(){
 }
 
 function viewPassReset(){
-  console.log("click")
     $.get('/changepass')
     .success(function(data) {
     })

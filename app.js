@@ -28,7 +28,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/users', require('./routes/users'));
 app.use('/albums', require('./routes/albums'));
 app.use('/images', require('./routes/images'));
-
 app.use('/', require('./routes/index'));
 
 // catch 404 and handle error 

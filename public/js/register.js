@@ -12,17 +12,12 @@ $(function() {
   $('form').on('submit', registerUser);
 });
 
-function testFunction(){
-  console.log('test function');
-}
-
 function hidelogout(){
   $(".resetpassBtn, .logoutBtn").hide();
 }
 
 function registerUser(e) {
   e.preventDefault();
-  console.log('in register user e');
   var name = $name.val()
   var email = $email.val();
   var password = $password.val();

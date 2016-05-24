@@ -4,7 +4,6 @@ var arrayOfUserItemsG = [];
 var arrayOfRowContainersObjectsG = [];
 
 function init(){
-  console.log('inside edit init');
   $("#list").on('click', '.user-image', viewFullImage);
 }
 

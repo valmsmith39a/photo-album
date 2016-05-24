@@ -7,8 +7,6 @@ var authMiddleware = require('../config/auth.js');
 /* GET all users' albums */
 router.get('/allusersalbums', authMiddleware, function(req, res, next) {
   Album.find({}, function(err, allUsersAlbums){
-    console.log('all users albums ERR: ', err);
-    console.log('all users albums ERR: ', allUsersAlbums);
     res.render('allUsersAlbums', {allUsersAlbums:allUsersAlbums});
   });
 });
@@ -16,11 +14,6 @@ router.get('/allusersalbums', authMiddleware, function(req, res, next) {
 /* GET specific user's public album in all users album list  */
 router.get('/userpublicalbum/:albumId', authMiddleware, function(req, res, next) {
   Album.findById(req.params.albumId).populate('imagesArray').exec(function(err, userPublicAlbum){
-    console.log('INSIDE USERPUBLICITEM')
-    console.log('all users albums ERR: ', err);
-    console.log('user album name', userPublicAlbum.albumName);
-    console.log('user array', userPublicAlbum.imagesArray);
-    //res.render('userPublicAlbum');
     res.render('userPublicAlbum', {userPublicAlbumName:userPublicAlbum.albumName, imagesArray:userPublicAlbum.imagesArray});
   });
 });
@@ -43,6 +36,7 @@ router.get('/getalluseralbums', authMiddleware, function(req, res, next) {
 
 /* POST create user album */
 router.post('/createalbum', authMiddleware, function(req, res, next) {
+  console.log('create album');
   var userMongoId = req.user._id;
   User.findById(userMongoId, function(err, userObject) {  
     var album = new Album(req.body);
@@ -57,27 +51,24 @@ router.post('/createalbum', authMiddleware, function(req, res, next) {
 
 /* DELETE remove user album */
 router.delete('/:albumId/:albumIndex', authMiddleware,function(req, res, next) {  
-  console.log('inside delete album router file');
   var userId = req.user._id; 
   Album.findById(req.params.albumId, function(err, album) {
     User.findById(userId, function(err, user){
-      console.log('before remove', user.albumsArray);
       user.albumsArray.splice(req.params.albumIndex, 1);
-      console.log('after remove', user.albumsArray);
-
       user.save(function(err, data){
         album.remove(function(err){
           res.status(err ? 400:200).send(err||null);
-          console.log('album REMOVED SUCCESSFULLY');
         });
       });
     });  
   });
 });
 
-router.put('/editalbum/:albumId', function(req, res, next) {
+router.put('/:albumId', function(req, res, next) {
+  console.log('album id: ', req.body);
   var updatedItemObject = req.body;
   var itemId = req.params.albumId;
+  /*
   Album.findById(itemId, function(err, album){
     album.albumName = updatedItemObject.albumName;
     album.description = updatedItemObject.description;
@@ -85,6 +76,7 @@ router.put('/editalbum/:albumId', function(req, res, next) {
       res.status(err ? 400:200).send(err||savedItem);
     });
   });
+  */
 });
 
 module.exports = router;

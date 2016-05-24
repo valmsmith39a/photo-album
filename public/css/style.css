@@ -2,7 +2,6 @@
   font-family: 'Lily Script One', cursive;
 }
 
-
 #list{
   width: 98vw;
   display: flex;
@@ -65,8 +64,8 @@ td{
 
 .jumbotron{
    /*background-color: #e2b279;*/
-   background-image:url('http://all4desktop.com/data_images/original/4238660-nature-background.jpg');
-   color:red;
+   /*background-image: url('http://all4desktop.com/data_images/original/4238660-nature-background.jpg');*/
+   color: black;
    font-size: 50px;
    opacity:.8;
 }

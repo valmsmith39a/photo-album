@@ -23,7 +23,6 @@ function getAllImages(){
 }
 
 function viewFullImage() {
-  console.log('In view full image');
   var imageIndex = $(this).closest('.row-container').index() - 1;
   var imageObject = arrayOfUserItemsG[imageIndex];  
   var imageURL = imageObject.url;
@@ -98,7 +97,7 @@ function saveEdits(e){
 
   $.ajax({
     method: 'PUT',
-    url: '/albums/editalbum/' + albumId,
+    url: '/' + albumId,
     data: itemObj
     })
     .done(function(data, status) {
